@@ -7,6 +7,10 @@ const TextForm = (props) => {
         setText(temp);
     }
 
+    const handleLowClick = ()=>{
+        let temp = text.toLowerCase();
+        setText(temp);
+    }
     const handleOnChange = (event)=>{
         setText(event.target.value);
     }
@@ -27,6 +31,10 @@ const TextForm = (props) => {
         <button onClick={handleUpClick} type="button" className="btn btn-primary">
           Convert to UpperCase
         </button>
+        <button onClick={handleLowClick} type="button" className="btn btn-primary ms-3">
+          Convert to LowerCase
+        </button>
+        
       </div>
     </div>
   );
