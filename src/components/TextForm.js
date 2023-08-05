@@ -17,10 +17,24 @@ const TextForm = (props) => {
     let temp = text.toLowerCase();
     setText(temp);
   };
+  const handleClearClick = () => {
+    setText("");
+    setVowels(0);
+  };
   const handleOnChange = (event) => {
+    // console.log(target.value);
+    let str = (event.target.value+"");
+    let character = str.charAt(str.length -1);
+    // console.log(character);
+    if(character === 'a' || character === 'e' || character === 'i' || character === 'o' || character === 'u'
+        || character === 'A' || character === 'E' || character === 'I' || character === 'O' || character === 'U'){
+          let count = vowels;
+          setVowels(count+1);
+    }
     setText(event.target.value);
   };
-  const [text, setText] = useState("Enter the text here");
+  const [text, setText] = useState("");
+  const [vowels, setVowels] = useState(0);
   return (
     <div>
       <div className="container my-3">
@@ -48,11 +62,19 @@ const TextForm = (props) => {
         >
           Convert to LowerCase
         </button>
+        <button
+          onClick={handleClearClick} 
+          type="button"
+          className="btn btn-primary ms-3"
+        >
+          Clear
+        </button>
       </div>
       <div className="container">
         <h3>Your text summary</h3>
         <div>{text.split(" ").length} words and {text.length} characters</div>
-
+        <div>{0.008* text.split(" ").length} minutes read</div>
+        <div>Number of Vowels: {vowels}</div>
         <h3>Preview</h3>
         <div>{text}</div>
       </div>
