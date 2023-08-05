@@ -19,22 +19,58 @@ const TextForm = (props) => {
   };
   const handleClearClick = () => {
     setText("");
+    setConstants(0);
+    setSpaces(0);
+    
     setVowels(0);
   };
-  const handleOnChange = (event) => {
-    // console.log(target.value);
-    let str = (event.target.value+"");
-    let character = str.charAt(str.length -1);
-    // console.log(character);
-    if(character === 'a' || character === 'e' || character === 'i' || character === 'o' || character === 'u'
+  const count_Vowels = () =>{
+    let str = text;
+    let count = 0;
+    for(let i = 0; i< str.length; i+=1){
+      let character = str.charAt(i);
+      if(character === 'a' || character === 'e' || character === 'i' || character === 'o' || character === 'u'
         || character === 'A' || character === 'E' || character === 'I' || character === 'O' || character === 'U'){
-          let count = vowels;
-          setVowels(count+1);
+          count += 1;
+          setVowels(count);
+      }
     }
+
+  }
+
+  const count_Constants = () =>{
+    let str = text;
+    let count = 0;
+    for(let i = 0; i< str.length; i+=1){
+      let character = str.charAt(i);
+      if(character !== 'a' && character !== 'e' && character !== 'i' && character !== 'o' && character !== 'u'
+      && character !== 'A' && character !== 'E' && character !== 'I' && character !== 'O' && character !== 'U' && character !== ' '){
+          count += 1;
+          setConstants(count);
+      }
+    }
+
+  }
+  const count_Spaces = () =>{
+    let str = text;
+    let count = 0;
+    for(let i = 0; i< str.length; i+=1){
+      let character = str.charAt(i);
+      if(character === ' '){
+          count += 1;
+          setSpaces(count);
+      }
+    }
+
+  }
+
+  const handleOnChange = (event) => {
     setText(event.target.value);
   };
   const [text, setText] = useState("");
   const [vowels, setVowels] = useState(0);
+  const [constants, setConstants] = useState(0);
+  const [spaces, setSpaces] = useState(0);
   return (
     <div>
       <div className="container my-3">
@@ -69,13 +105,36 @@ const TextForm = (props) => {
         >
           Clear
         </button>
+        <button
+          onClick={count_Vowels} 
+          type="button"
+          className="btn btn-primary ms-3"
+        >
+          Count Vowels
+        </button>
+        <button
+          onClick={count_Constants} 
+          type="button"
+          className="btn btn-primary ms-3"
+        >
+          Count Constants
+        </button>
+        <button
+          onClick={count_Spaces} 
+          type="button"
+          className="btn btn-primary ms-3"
+        >
+          Count Spaces
+        </button>
       </div>
       <div className="container">
         <h3>Your text summary</h3>
         <div>{text.split(" ").length} words and {text.length} characters</div>
         <div>{0.008* text.split(" ").length} minutes read</div>
         <div>Number of Vowels: {vowels}</div>
-        <h3>Preview</h3>
+        <div>Number of Constants: {constants}</div>
+        <div>Number of White Spaces: {spaces}</div>
+        <h3 className="my-2">Preview</h3>
         <div>{text}</div>
       </div>
     </div>
