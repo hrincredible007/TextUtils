@@ -4,6 +4,8 @@ const TextForm = (props) => {
   const handleUpClick = () => {
     let temp = text.toUpperCase();
     setText(temp);
+    props.updateAlert("Converted to LowerCase", "success");
+
   };
 
   //   const evaluate_Words = () =>{
@@ -16,6 +18,7 @@ const TextForm = (props) => {
   const handleLowClick = () => {
     let temp = text.toLowerCase();
     setText(temp);
+    props.updateAlert("Converted to LowerCase", "success");
   };
   const handleClearClick = () => {
     setText("");
@@ -23,6 +26,9 @@ const TextForm = (props) => {
     setSpaces(0);
 
     setVowels(0);
+    
+    // props.updateAlert("All text cleared", "success");
+    props.updateAlert("All text cleared", "success");
   };
   const count_Vowels = () => {
     let str = text;
@@ -45,6 +51,8 @@ const TextForm = (props) => {
         setVowels(count);
       }
     }
+    
+    props.updateAlert("All the vowels are calculated", "success");
   };
 
   const count_Constants = () => {
@@ -69,6 +77,7 @@ const TextForm = (props) => {
         setConstants(count);
       }
     }
+    props.updateAlert("All the constants are calculated", "success");
   };
   const count_Spaces = () => {
     let str = text;
@@ -80,6 +89,8 @@ const TextForm = (props) => {
         setSpaces(count);
       }
     }
+    
+    props.updateAlert("All the spaces are calculated", "success");
   };
 
   const handleOnChange = (event) => {
@@ -89,10 +100,11 @@ const TextForm = (props) => {
   const [vowels, setVowels] = useState(0);
   const [constants, setConstants] = useState(0);
   const [spaces, setSpaces] = useState(0);
+  // console.log(props.mode);
   return (
     <div>
       <div className="container my-3">
-        <h3 style={{ color: props.mode === "dark" ? "white" : "dark" }}>
+        <h3 style={{ color: props.mode === "dark" ? "white" : "black" }}>
           {props.heading}
         </h3>
         <div className="my-3">
@@ -100,7 +112,7 @@ const TextForm = (props) => {
             className="form-control"
             value={text}
             style={{
-              color: props.mode === "dark" ? "white" : "dark",
+              color: props.mode === "dark" ? "white" : "black",
               backgroundColor: props.mode === "dark" ? "#343a40" : "white",
             }}
             onChange={handleOnChange}
@@ -126,6 +138,7 @@ const TextForm = (props) => {
           onClick={handleClearClick}
           type="button"
           className="btn btn-primary ms-3"
+          
         >
           Clear
         </button>
@@ -153,7 +166,7 @@ const TextForm = (props) => {
       </div>
       <div
         className="container"
-        style={{ color: props.mode === "dark" ? "white" : "dark" }}
+        style={{ color: props.mode === "dark" ? "white" : "black" }}
       >
         <h3>Your text summary</h3>
         <div>
@@ -164,7 +177,11 @@ const TextForm = (props) => {
         <div>Number of Constants: {constants}</div>
         <div>Number of White Spaces: {spaces}</div>
         <h3 className="my-2">Preview</h3>
-        <div>{text.length === 0 ? 'Enter something in the textbox to preview it here.': text}</div>
+        <div>
+          {text.length === 0
+            ? "Enter something in the textbox to preview it here."
+            : text}
+        </div>
       </div>
     </div>
   );
