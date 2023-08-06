@@ -6,12 +6,12 @@ const TextForm = (props) => {
     setText(temp);
   };
 
-//   const evaluate_Words = () =>{
-//     if(text.length() === 0){
-//         return 0;
-//     }
-//     return 
-//   };
+  //   const evaluate_Words = () =>{
+  //     if(text.length() === 0){
+  //         return 0;
+  //     }
+  //     return
+  //   };
 
   const handleLowClick = () => {
     let temp = text.toLowerCase();
@@ -21,48 +21,66 @@ const TextForm = (props) => {
     setText("");
     setConstants(0);
     setSpaces(0);
-    
+
     setVowels(0);
   };
-  const count_Vowels = () =>{
+  const count_Vowels = () => {
     let str = text;
     let count = 0;
-    for(let i = 0; i< str.length; i+=1){
+    for (let i = 0; i < str.length; i += 1) {
       let character = str.charAt(i);
-      if(character === 'a' || character === 'e' || character === 'i' || character === 'o' || character === 'u'
-        || character === 'A' || character === 'E' || character === 'I' || character === 'O' || character === 'U'){
-          count += 1;
-          setVowels(count);
+      if (
+        character === "a" ||
+        character === "e" ||
+        character === "i" ||
+        character === "o" ||
+        character === "u" ||
+        character === "A" ||
+        character === "E" ||
+        character === "I" ||
+        character === "O" ||
+        character === "U"
+      ) {
+        count += 1;
+        setVowels(count);
       }
     }
+  };
 
-  }
-
-  const count_Constants = () =>{
+  const count_Constants = () => {
     let str = text;
     let count = 0;
-    for(let i = 0; i< str.length; i+=1){
+    for (let i = 0; i < str.length; i += 1) {
       let character = str.charAt(i);
-      if(character !== 'a' && character !== 'e' && character !== 'i' && character !== 'o' && character !== 'u'
-      && character !== 'A' && character !== 'E' && character !== 'I' && character !== 'O' && character !== 'U' && character !== ' '){
-          count += 1;
-          setConstants(count);
+      if (
+        character !== "a" &&
+        character !== "e" &&
+        character !== "i" &&
+        character !== "o" &&
+        character !== "u" &&
+        character !== "A" &&
+        character !== "E" &&
+        character !== "I" &&
+        character !== "O" &&
+        character !== "U" &&
+        character !== " "
+      ) {
+        count += 1;
+        setConstants(count);
       }
     }
-
-  }
-  const count_Spaces = () =>{
+  };
+  const count_Spaces = () => {
     let str = text;
     let count = 0;
-    for(let i = 0; i< str.length; i+=1){
+    for (let i = 0; i < str.length; i += 1) {
       let character = str.charAt(i);
-      if(character === ' '){
-          count += 1;
-          setSpaces(count);
+      if (character === " ") {
+        count += 1;
+        setSpaces(count);
       }
     }
-
-  }
+  };
 
   const handleOnChange = (event) => {
     setText(event.target.value);
@@ -74,11 +92,17 @@ const TextForm = (props) => {
   return (
     <div>
       <div className="container my-3">
-        <h3>{props.heading}</h3>
+        <h3 style={{ color: props.mode === "dark" ? "white" : "dark" }}>
+          {props.heading}
+        </h3>
         <div className="my-3">
           <textarea
             className="form-control"
             value={text}
+            style={{
+              color: props.mode === "dark" ? "white" : "dark",
+              backgroundColor: props.mode === "dark" ? "#343a40" : "white",
+            }}
             onChange={handleOnChange}
             id="exampleFormControlTextarea1"
             rows="8"
@@ -99,43 +123,48 @@ const TextForm = (props) => {
           Convert to LowerCase
         </button>
         <button
-          onClick={handleClearClick} 
+          onClick={handleClearClick}
           type="button"
           className="btn btn-primary ms-3"
         >
           Clear
         </button>
         <button
-          onClick={count_Vowels} 
+          onClick={count_Vowels}
           type="button"
           className="btn btn-primary ms-3"
         >
           Count Vowels
         </button>
         <button
-          onClick={count_Constants} 
+          onClick={count_Constants}
           type="button"
           className="btn btn-primary ms-3"
         >
           Count Constants
         </button>
         <button
-          onClick={count_Spaces} 
+          onClick={count_Spaces}
           type="button"
           className="btn btn-primary ms-3"
         >
           Count Spaces
         </button>
       </div>
-      <div className="container">
+      <div
+        className="container"
+        style={{ color: props.mode === "dark" ? "white" : "dark" }}
+      >
         <h3>Your text summary</h3>
-        <div>{text.split(" ").length} words and {text.length} characters</div>
-        <div>{0.008* text.split(" ").length} minutes read</div>
+        <div>
+          {text.split(" ").length} words and {text.length} characters
+        </div>
+        <div>{0.008 * text.split(" ").length} minutes read</div>
         <div>Number of Vowels: {vowels}</div>
         <div>Number of Constants: {constants}</div>
         <div>Number of White Spaces: {spaces}</div>
         <h3 className="my-2">Preview</h3>
-        <div>{text}</div>
+        <div>{text.length === 0 ? 'Enter something in the textbox to preview it here.': text}</div>
       </div>
     </div>
   );
