@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
-// import About from "./components/About";
+import About from "./components/About";
+import {
+  BrowserRouter as BRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
@@ -25,7 +30,9 @@ function App() {
       msg: message,
       thing: thing,
     });
-    setTimeout(() => {setAlert(null)}, 1500);
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500);
   };
 
   const [mode, setMode] = useState("light");
@@ -34,15 +41,20 @@ function App() {
   // console.log(mode);
   return (
     <div>
+    <BRouter>
       <NavBar title="TextUtils" mode={mode} change={changeMode} />
       <Alert alert={alert}></Alert>
-      <TextForm
-        heading="Enter the text to analyze below"
-        mode = {mode}
-        updateAlert = {updateAlert}
-      ></TextForm>
-
-      {/* <About></About> */}
+      <Routes>
+        <Route exact path="/about" element={<About/>}></Route>
+        <Route exact path="/" element = {
+          <TextForm
+            heading="Enter the text to analyze below"
+            mode={mode}
+            updateAlert={updateAlert}
+          ></TextForm>}>
+        </Route>
+        </Routes>
+      </BRouter>
     </div>
   );
 }

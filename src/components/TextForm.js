@@ -170,7 +170,10 @@ const TextForm = (props) => {
       >
         <h3>Your text summary</h3>
         <div>
-          {text.split(" ").length} words and {text.length} characters
+          {
+          text.length === 0? 0:text.replace(/\s+/g, ' ').trim().split(" ").length
+          
+          } words and {text.length} characters
         </div>
         <div>{0.008 * text.split(" ").length} minutes read</div>
         <div>Number of Vowels: {vowels}</div>
